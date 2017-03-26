@@ -62,29 +62,29 @@ else:
             for krawedz in krawedzie:
                 if krawedz[0] == kierunek or krawedz[1] == kierunek:
                     mozliwe.append(krawedz)
-                if len(mozliwe) == 1:
-                    if mozliwe[0][0] == kierunek:
-                        kierunek = mozliwe[0][1]
-                    else:
-                        kierunek = mozliwe[0][0]
-                    krawedz_obecna = mozliwe[0]
-                    krawedzie.remove(krawedz_obecna)
+            if len(mozliwe) == 1:
+                if mozliwe[0][0] == kierunek:
+                    kierunek = mozliwe[0][1]
                 else:
-                    for mozliwa_krawedz in mozliwe:
-                        new_graph = {}
-                        for krawedz in krawedzie:
-                            new_graph[krawedz[0]] = []
-                            new_graph[krawedz[1]] = []
-                        for krawedz in krawedzie:
-                            new_graph[krawedz[0]].append(krawedz[1])
-                            new_graph[krawedz[1]].append(krawedz[0])
-                        if spojny(new_graph):
-                            if mozliwa_krawedz[0] == kierunek:
-                                kierunek = mozliwa_krawedz[1]
-                            else:
-                                kierunek = mozliwa_krawedz[0]
-                            krawedz_obecna = mozliwa_krawedz
-                            krawedzie.remove(krawedz_obecna)
-                            break
+                    kierunek = mozliwe[0][0]
+                krawedz_obecna = mozliwe[0]
+                krawedzie.remove(krawedz_obecna)
+            else:
+                for mozliwa_krawedz in mozliwe:
+                    new_graph = {}
+                    for krawedz in krawedzie:
+                        new_graph[krawedz[0]] = []
+                        new_graph[krawedz[1]] = []
+                    for krawedz in krawedzie:
+                        new_graph[krawedz[0]].append(krawedz[1])
+                        new_graph[krawedz[1]].append(krawedz[0])
+                    if spojny(new_graph):
+                        if mozliwa_krawedz[0] == kierunek:
+                            kierunek = mozliwa_krawedz[1]
+                        else:
+                            kierunek = mozliwa_krawedz[0]
+                        krawedz_obecna = mozliwa_krawedz
+                        krawedzie.remove(krawedz_obecna)
+                        break
             sciezka.append(krawedz_obecna)
         print("Cykl Eulera: {0}".format(sciezka))
