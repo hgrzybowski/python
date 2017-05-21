@@ -89,7 +89,6 @@ def cykl(graph):
         sciezka.append(krawedz_obecna)
     print("Cykl Eulera: {0}".format(sciezka))
 
-
 def kolorowanie(graph):
     if not spojny(graph):
         return False
@@ -122,8 +121,30 @@ def kolorowanie(graph):
         colors[wierzcholek] = new_color
     return colors
 
+def dwudzielny(graph)
+
+    colors = {}
+    for wierzcholek in graph.keys():
+        colors[wierzcholek] = 0
+    kolejka = []
+    for wierzcholek in graph.keys():
+        if colors[wierzcholek] != 0:
+            continue
+        colors[wierzcholek] = 1
+        kolejka.append(wierzcholek)
+        while len(kolejka) != 0:
+            sprawdzany = kolejka.pop()
+            for polaczenie in graph[sprawdzany]:
+                if colors[sprawdzany] == colors[polaczenie]:
+                    return False
+                if colors[polaczenie] != 0:
+                    continue
+                colors[polaczenie] = colors[sprawdzany] * -1
+                kolejka.append(polaczenie)
+    print([w for w in colors if colors[w] == 1], [w for w in colors if colors[w] == -1])
 
 graph = wczytywanie()
-stopnie(graph)
-cykl(graph)
+# stopnie(graph)
+# cykl(graph)
+# dwudzielny(graph)
 print(kolorowanie(graph))
