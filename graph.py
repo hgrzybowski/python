@@ -89,7 +89,39 @@ def cykl(graph):
         sciezka.append(krawedz_obecna)
     print("Cykl Eulera: {0}".format(sciezka))
 
-def dwudzielny(graph):
+def kolorowanie(graph):
+    if not spojny(graph):
+        return False
+    colors = {}
+    stopnie = {}
+    for wierzcholek in graph.keys():
+        stopien = len(graph[wierzcholek])
+        if not stopnie.get(stopien, False):
+            stopnie[stopien] = [wierzcholek]
+        else:
+            stopnie[stopien].append(wierzcholek)
+        colors[wierzcholek] = -1
+    if len(stopnie[max(stopnie)]) == 1:
+        [wierzcholek] = stopnie.pop(max(stopnie))
+    else:
+        wierzcholek = stopnie[max(stopnie)].pop()
+    colors[wierzcholek] = 0
+    while stopnie:
+        taken = {}
+        if len(stopnie[max(stopnie)]) == 1:
+            [wierzcholek] = stopnie.pop(max(stopnie))
+        else:
+            wierzcholek = stopnie[max(stopnie)].pop()
+        for sasiad in graph[wierzcholek]:
+            if colors[sasiad] > -1:
+                taken[colors[sasiad]] = True
+        new_color = 0
+        while taken.get(new_color, False):
+            new_color += 1
+        colors[wierzcholek] = new_color
+    return colors
+
+def dwudzielny(graph)
 
     colors = {}
     for wierzcholek in graph.keys():
@@ -114,4 +146,5 @@ def dwudzielny(graph):
 graph = wczytywanie()
 # stopnie(graph)
 # cykl(graph)
-dwudzielny(graph)
+# dwudzielny(graph)
+print(kolorowanie(graph))
